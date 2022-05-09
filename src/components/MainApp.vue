@@ -13,23 +13,27 @@
             </div>
         </div>
     </div>
+    <LoaderComponent v-if="loading"/>
   </main>
 </template>
 
 <script>
 import axios from 'axios'
 import InputApp from "./InputApp.vue"
+import LoaderComponent from "./LoaderComponent.vue"
 
 export default {
   name: 'MainApp',
   components: {
       InputApp,
+      LoaderComponent
   },
   data() {
       return {
           charactherList: [],
           searchText: '',
           genere: [],
+          loading: false
       }
   },
   methods: {
@@ -50,16 +54,20 @@ export default {
     }
   },
   created() {
-    axios.get('https://flynn.boolean.careers/exercises/api/array/music').then((res) => {
-        this.charactherList = res.data.response
-        this.charactherList.forEach((el)=>{
-            if(!this.genere.includes(el.genre)) {
-                this.genere.push(el.genre)
-            }
-        })
-    }).catch((error) => {
-        console.log(error)
-      })
+        this.loading = true
+        setTimeout(()=>{
+            axios.get('https://flynn.boolean.careers/exercises/api/array/music').then((res) => {
+                this.charactherList = res.data.response
+                this.loading = false;
+                this.charactherList.forEach((el)=>{
+                    if(!this.genere.includes(el.genre)) {
+                        this.genere.push(el.genre)
+                    }
+                })
+            }).catch((error) => {
+                console.log(error)
+            })
+        },1000)
     }
 }
 </script>
