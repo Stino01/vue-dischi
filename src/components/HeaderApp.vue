@@ -5,6 +5,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'HeaderApp',
 }
@@ -15,14 +16,13 @@ export default {
 
     header {
         width: 100%;
-        height: 8vh;
         background-color: $color-lightblue;
         display: flex;
         align-items: center;
 
         img {
             width: 50px;
-            margin-left: 20px;
+            margin: 1em 0 1em 1em;
         }
     }
 </style>
